@@ -21,6 +21,8 @@ def combinationIsValid(board, snake, combination):
     # we determine if the result falls into one of the two restrictions
 
     # First step will be to make the move to then check if it is valid
+
+    
     print('checking snake',snake)
     print('for move',combination)
     for move in list(combination):
@@ -63,7 +65,7 @@ def combinationIsValid(board, snake, combination):
         for partOfBody in snake[1:]:# Iterates over the whole body of the snake except for the head
             if partOfBody == snake[0]:
                 #Forbidden: Snake is biting itself
-                # print('Snake is biting itself')
+                print('Snake is biting itself')
                 return False  
                 
         # Second restriction is that the snake may not get away from the board
@@ -75,19 +77,19 @@ def combinationIsValid(board, snake, combination):
         if snake[0] not in everyCoordinateinBoard: # Snake's head is inside the borders
             print('Snake out the board')
             return False
-        else: # Snake's head is not in the board
+        else: # Snake's head is in the board
             continue
             
 
 def getPossibleMoveCombinations(board,snake,depth):
-    #Full list of mathematically available moves, then a list of forbidden ones to discard them
+    # Full list of mathematically possible moves, then a function to check which are legal
 
     # In order to obtain all possible options, we combine LRDU a number 'depth' of times
-    # Itertools' product() will provide us with this metric
+    # Itertools' product() will provide us this tool
 
     allCombinations = product('LRUD',repeat = depth)
 
-    #Out of these, we check which ones can be executed.
+    # Out of these, we check which ones can be executed.
     validCombinations = []
 
     for combination in list(allCombinations):
@@ -104,7 +106,7 @@ def numberOfAvailableDifferentPaths(board, snake, depth):
 
     # Keep in mind: initial config is always valid 
 
-    print('Result is',len(getPossibleMoveCombinations(board,snake,depth)))
+    print('Result is',len(getPossibleMoveCombinations(board,snake[:],depth)))
 
 
-numberOfAvailableDifferentPaths(board,snake,depth)
+numberOfAvailableDifferentPaths(board,snake[:],depth)
