@@ -1,9 +1,12 @@
-from itertools import combinations
+from itertools import product
 
-l = ['L','R','D','U']
+allCombinations = list(product('LRUD',repeat = 3))
 
-# Movemos el resto del cuerpo
-allcombinations = combinations(l,2)
+filtered = []
 
-for combination in allcombinations:
-    print(list(combination))
+for comb in allCombinations:
+    combString = ''.join(comb)
+    if 'LR' not in combString and 'DU' not in combString and 'UD' not in combString:
+        filtered.append(comb)
+
+print(filtered)
