@@ -1,4 +1,5 @@
 from itertools import product
+import copy
 
 board = [4,3]
 snake =  [[2, 2], [3, 2], [3, 1], [3, 0], [2, 0], [1, 0], [0, 0]]
@@ -21,8 +22,6 @@ def combinationIsValid(board, snake, combination):
     # we determine if the result falls into one of the two restrictions
 
     # First step will be to make the move to then check if it is valid
-
-    
     print('checking snake',snake)
     print('for move',combination)
     for move in list(combination):
@@ -62,6 +61,7 @@ def combinationIsValid(board, snake, combination):
         # Checking if this move is permitted:
         # First restriction is that the head can not bite any part of the body
         print('post move ',move, 'snake is defined as',snake)
+
         for partOfBody in snake[1:]:# Iterates over the whole body of the snake except for the head
             if partOfBody == snake[0]:
                 #Forbidden: Snake is biting itself
@@ -79,23 +79,25 @@ def combinationIsValid(board, snake, combination):
             return False
         else: # Snake's head is in the board
             continue
-            
+        
+    return True
 
-def getPossibleMoveCombinations(board,snake,depth):
+def getPossibleMoveCombinations(board, snake, depth):
     # Full list of mathematically possible moves, then a function to check which are legal
 
     # In order to obtain all possible options, we combine LRDU a number 'depth' of times
     # Itertools' product() will provide us this tool
 
     allCombinations = product('LRUD',repeat = depth)
-
+    
     # Out of these, we check which ones can be executed.
     validCombinations = []
-
     for combination in list(allCombinations):
-        if combinationIsValid(board, snake[:], combination):
+        print('PRESNAKE',snake)
+        if combinationIsValid(board, copy.deepcopy(snake), combination):
             print('Combination is valid')
             validCombinations.append(combination)
+        print('POSTSNAKE',snake)
 
     return validCombinations
 
@@ -105,7 +107,7 @@ def numberOfAvailableDifferentPaths(board, snake, depth):
     # TODO: REST HAS TO BE DISCARDED
 
     # Keep in mind: initial config is always valid 
-
+    
     print('Result is',len(getPossibleMoveCombinations(board,snake[:],depth)))
 
 
