@@ -3,7 +3,7 @@ snake =  [[2, 2], [3, 2], [3, 1], [3, 0], [2, 0], [1, 0], [0, 0]]
 depth = 3
 
 def combinationIsValid(board, snake, combination):
-    #Based on the combination the snake wants to make
+    # Based on the combination the snake wants to make
     # and its current state in the board
     # we determine if the result falls into one of the two restrictions
     for partOfBodyA in snake:
