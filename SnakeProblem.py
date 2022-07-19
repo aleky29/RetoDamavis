@@ -13,43 +13,66 @@ def getCoordinatesFromBoard(board):
     return listCoordinates
 
 def combinationIsValid(board, snake, combination):
+
     # Based on the combination the snake wants to make
     # and its current state in the board
     # we determine if the result falls into one of the two restrictions
 
     # First step will be to make the move to then check if it is valid.['L','R','U','D']
-    for move in combination:
+    for move in list(combination):
+
         if move == 'L':
+            # Moving snake's body:
+            for i in range(1,len(snake)):
+                snake[-i] = snake[-i-1]
+
             # Moving snake's head:
             snake[0][0] = snake[0][0] - 1
-            # Moving the rest:
-            
 
+        if move == 'R':
+            # Moving snake's body:
+            for i in range(1,len(snake)):
+                snake[-i] = snake[-i-1]
 
+            # Moving snake's head:
+            snake[0][0] = snake[0][0] + 1
 
+        if move == 'U':
+            # Moving snake's body:
+            for i in range(1,len(snake)):
+                snake[-i] = snake[-i-1]
 
-    # First restriction is that the head can not bite any part of the body
+            # Moving snake's head:
+            snake[0][1] = snake[0][1] - 1
+
+        if move == 'D':
+            # Moving snake's body:
+            for i in range(1,len(snake)):
+                snake[-i] = snake[-i-1]
+
+            # Moving snake's head:
+            snake[0][1] = snake[0][1] + 1
+
+        # Checking if this move is permitted:
+        # First restriction is that the head can not bite any part of the body
     
-    for partOfBody in snake[1:]:# Iterates over the whole body of the snake except for the head
-        if partOfBody == snake[0]:
-            #Forbidden: Snake is biting itself
+        for partOfBody in snake[1:]:# Iterates over the whole body of the snake except for the head
+            if partOfBody == snake[0]:
+                #Forbidden: Snake is biting itself
+                return False  
+                
+        # Second restriction is that the snake may not get away from the board
+        # If this happened, the head would be the first part to get there.
+
+        # We need to first get all possible coordinates within the board
+        everyCoordinateinBoard = getCoordinatesFromBoard(board)
+        # Now, check if the snake's head is not in any of those, which would be a violation.
+        if snake[0] in everyCoordinateinBoard: # Snake's head is inside the borders
+            return True
+        else: # Snake's head is not in the board
             return False
 
-    # Second restriction is that the snake may not get away from the board
-    # In case this happened, the head would be the first part to get there.
-
-    # We need to first get all possible coordinates within the board
-    everyCoordinateinBoard = getCoordinatesFromBoard(board)
-    # Now, check if the snake's head is not in any of those, which would be a violation.
-    if snake[0] in everyCoordinateinBoard: # Snake is inside the borders
-        return True
-    else: # Snake's head is not in the board
-        return False
-
-
-
-
-
+         
 
 def getPossibleMoveCombinations(possibleMoves,snake,depth):
     #Full list of mathematically available moves, then a list of forbidden ones to discard them
