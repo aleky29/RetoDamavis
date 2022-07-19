@@ -1,12 +1,9 @@
-l = [[2,2],[1,2],[0,2],[0,1],[0,0],[1,0]]
+from itertools import combinations
+
+l = ['L','R','D','U']
 
 # Movemos el resto del cuerpo
+allcombinations = combinations(l,2)
 
-for i in range(1,len(l)):
-    
-    l[-i] = l[-i-1]
-
-# Movemos la cabeza
-l[0]= [2,1]
-
-print(l)
+for combination in allcombinations:
+    print(list(combination))
