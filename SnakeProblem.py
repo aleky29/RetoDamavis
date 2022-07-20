@@ -1,6 +1,10 @@
 from itertools import product
 import copy
 
+'''
+Alejandro Lares Pacheco for DAMAVIS.
+'''
+
 board =  [10, 10]
 snake =    [[5,5], [5,4], [4,4], [4,5]]
 depth = 4
