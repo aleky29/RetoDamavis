@@ -17,8 +17,7 @@ def combinationIsValid(board, snake, combination):
     # we determine if the result falls into one of the two restrictions
 
     # First step will be to make the move to then check if it is valid
-    print('checking snake', snake)
-    print('for combination', combination)
+
     for move in list(combination):
 
         if move == 'L':
@@ -60,16 +59,16 @@ def combinationIsValid(board, snake, combination):
         for partOfBody in snake[1:]:
             if partOfBody == snake[0]:
                 # Forbidden: Snake is biting itself
-                print('Snake is biting itself')
                 return False
 
         # Second restriction is that the snake may not get away from the board
         # If this happened, the head would be the first part to get there.
 
         if snake[0][0] < 0 or snake[0][1] < 0 or snake[0][0] > board[0] - 1 or snake[0][1] > board[1] - 1:
-            print('Snake out of bounds')
+            # Forbidden: Snake out of bounds
             return False
-        else:  # Snake's head is in the board
+        else:  
+            # Snake's head is in the board
             continue
 
     return True
@@ -125,9 +124,10 @@ def getPossibleMoveCombinations(board, snake, depth):
 
     # Out of these, we check which ones can be executed.
     validCombinations = []
+
     for combination in list(allCombinations):
         if combinationIsValid(board, copy.deepcopy(snake), combination):
-            print('Combination is valid')
+            # Combination is valid
             validCombinations.append(combination)
 
     return validCombinations
@@ -136,7 +136,11 @@ def getPossibleMoveCombinations(board, snake, depth):
 def numberOfAvailableDifferentPaths(board, snake, depth):
 
     if depth >= 1 and depth <= 20:
-        return len(getPossibleMoveCombinations(board, snake[:], depth))
+        
+        possibleCombinations = getPossibleMoveCombinations(board, snake[:], depth)
+        print(possibleCombinations)
+
+        return len(possibleCombinations)
     else:
         raise ValueError
 
