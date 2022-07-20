@@ -1,9 +1,9 @@
 from itertools import product
 import copy
 
-board =    [2, 3]
-snake =    [[0,2], [0,1], [0,0], [1,0], [1,1], [1,2]]
-depth = 20
+board = [2, 3]
+snake = [[0, 2], [0, 1], [0, 0], [1, 0], [1, 1], [1, 2]]
+depth = 10
 
 
 def combinationIsValid(board, snake, combination):
@@ -81,7 +81,9 @@ def getPossibleMoveCombinations(board, snake, depth):
 
     allCombinations = []
 
-    # Desde la posición de la cabeza, restringimos todos aquellos strings que lleven fuera de la tabla
+    # In order to filter out some of the combinatiions, we filter out:
+    # 1. Those combinations that has consecutive contrary moves (LR, RL, UD, DU)
+    # 2. Those combinations that moves into a single direction more times than the size of the board
 
     marginL = board[0] - 1
     marginR = board[0] - 1
