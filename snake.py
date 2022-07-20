@@ -5,6 +5,10 @@ board = [2, 3]
 snake = [[0, 2], [0, 1], [0, 0], [1, 0], [1, 1], [1, 2]]
 depth = 10
 
+'''
+Alejandro Lares Pacheco for DAMAVIS.
+Snake Problem, 2022
+'''
 
 def combinationIsValid(board, snake, combination):
 
